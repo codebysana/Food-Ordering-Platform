@@ -16,7 +16,7 @@ const MobileNav = () => {
       <SheetTrigger>
         <Menu className="text-orange-500" />
       </SheetTrigger>
-      <SheetContent className="p-5">
+      <SheetContent className="space-y-3 py-3 px-3">
         <SheetTitle>Welcome to Bitekart.com</SheetTitle>
         <Separator />
         <SheetDescription className="flex">
