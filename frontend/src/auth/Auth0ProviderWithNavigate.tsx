@@ -1,16 +1,17 @@
-import { User, type AppState } from "@auth0/auth0-react";
+import { Auth0Provider, User, type AppState } from "@auth0/auth0-react";
 import type React from "react";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const Auth0Provider = ({ children }: Props) => {
+const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const domain = import.meta.env.VITE_AUTH0_DOMAIN;
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
-  const redirectURL = import.meta.env.VITE_AUTH0_CALLBACK_URL;
+  const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
+  // console.log("Auth0 config values:", { domain, clientId, redirectUri});
 
-  if (!domain || !clientId || redirectURL) {
+  if (!domain || !clientId || !redirectUri) {
     throw new Error("unable to inistialize auth");
   }
 
@@ -22,7 +23,7 @@ const Auth0Provider = ({ children }: Props) => {
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      authorizationParams={{ redirect_url: redirectURL }}
+      authorizationParams={{ redirect_uri: redirectUri }}
       onRedirectCallback={onRedirectCallback}
     >
       {children}
@@ -30,4 +31,4 @@ const Auth0Provider = ({ children }: Props) => {
   );
 };
 
-export default Auth0Provider;
+export default Auth0ProviderWithNavigate;
