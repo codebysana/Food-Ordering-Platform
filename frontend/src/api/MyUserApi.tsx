@@ -1,11 +1,29 @@
-import React from 'react'
+import type { useMutation } from "@tanstack/react-query";
 
-const myUserApi = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export default myUserApi
+type CreateUserRequest = {
+  auth0Id: string;
+  email: string;
+};
+
+export const useCreateMyUser = () => {
+  const createMyUserRequest = async (user: CreateUserRequest) => {
+    const response = await fetch(`${API_BASE_URL}/api/my/user`, {
+      method: "POST",
+      headers: {
+        "Content-Tyoe": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to create user");
+    }
+  };
+  const {
+    mutateAsync: createUser,
+    isLoading,
+    isError,
+    isSuccess,
+  } = useMutation(createMyUserRequest);
+};
