@@ -1,4 +1,4 @@
-import type { useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -12,7 +12,7 @@ export const useCreateMyUser = () => {
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "POST",
       headers: {
-        "Content-Tyoe": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
@@ -26,4 +26,10 @@ export const useCreateMyUser = () => {
     isError,
     isSuccess,
   } = useMutation(createMyUserRequest);
+  return {
+    createUser,
+    isLoading,
+    isError,
+    isSuccess,
+  };
 };
