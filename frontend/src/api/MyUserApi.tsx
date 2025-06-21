@@ -49,6 +49,7 @@ export const useUpdateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
     const accessToken = await getAccessTokenSilently();
+    console.log(accessToken);
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "PUT",
       headers: {
@@ -60,7 +61,7 @@ export const useUpdateMyUser = () => {
     if (!response.ok) {
       throw new Error("Failed to update user");
     }
-    return response.json();
+    return await response.json();
   };
 
   const {
@@ -71,5 +72,5 @@ export const useUpdateMyUser = () => {
     error,
     reset,
   } = useMutation(updateMyUserRequest);
-  return { updateUser, isLoading };
+  return { updateUser, isLoading, isSuccess, isError, error, reset };
 };

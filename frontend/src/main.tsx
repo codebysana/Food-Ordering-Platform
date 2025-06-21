@@ -9,7 +9,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
     },
   },
 });
@@ -17,11 +17,11 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Router>
-      <Auth0ProviderWithNavigate>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <Auth0ProviderWithNavigate>
           <AppRoutes />
-        </QueryClientProvider>
-      </Auth0ProviderWithNavigate>
+        </Auth0ProviderWithNavigate>
+      </QueryClientProvider>
     </Router>
   </React.StrictMode>
 );

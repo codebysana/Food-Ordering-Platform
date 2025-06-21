@@ -26,8 +26,10 @@ const createCurrentUser = async (
 };
 
 const updateCurrentUser = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
-    const { name, addressLine1, country, city } = req.body;
+    const { name, addressLine1, city, country } = req.body;
+    console.log(name, addressLine1, city, country);
     const user = await User.findById(req.userId);
 
     if (!user) {
