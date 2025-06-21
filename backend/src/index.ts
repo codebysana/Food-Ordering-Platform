@@ -6,12 +6,18 @@ import userRoute from "./routes/userRoute";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 
 app.use("/api/my/user", userRoute);
 
-app.listen(7000, () => {
-  console.log("Server started on localhost:7000");
+app.listen(5000, () => {
+  console.log("Server started on localhost:5000");
 });
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then(() => {

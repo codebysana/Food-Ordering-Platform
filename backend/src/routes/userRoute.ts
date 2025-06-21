@@ -11,7 +11,8 @@ router.post("/", jwtCheck, fixHandler(myUserController.createCurrentUser));
 router.put(
   "/",
   jwtCheck,
-  jwtParse, validateMyUserRequest,
+  jwtParse,
+  ...validateMyUserRequest,
   fixHandler(myUserController.updateCurrentUser)
 );
 

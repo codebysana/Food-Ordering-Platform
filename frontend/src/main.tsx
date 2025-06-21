@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import AppRoutes from "./AppRoutes";
 import Auth0ProviderWithNavigate from "./auth/Auth0ProviderWithNavigate";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,11 +17,11 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Router>
-      <QueryClientProvider client={queryClient}>
-        <Auth0ProviderWithNavigate>
+      <Auth0ProviderWithNavigate>
+        <QueryClientProvider client={queryClient}>
           <AppRoutes />
-        </Auth0ProviderWithNavigate>
-      </QueryClientProvider>
+        </QueryClientProvider>
+      </Auth0ProviderWithNavigate>
     </Router>
   </React.StrictMode>
 );
