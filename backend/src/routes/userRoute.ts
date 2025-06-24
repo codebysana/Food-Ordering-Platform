@@ -3,18 +3,22 @@ import myUserController from "../controllers/myUserController";
 import { fixHandler } from "../../utils/fixHandler";
 import { jwtCheck, jwtParse } from "../middleware/auth";
 import { validateMyUserRequest } from "../middleware/validation";
-import { asyncHandler } from "../../utils/asyncHandler";
 
 const router = express.Router();
 
-// api/my/user
+router.get(
+  "/",
+  jwtCheck,
+  jwtParse,
+  fixHandler(myUserController.getCurrentUser)
+);
 router.post("/", jwtCheck, fixHandler(myUserController.createCurrentUser));
 router.put(
   "/",
   jwtCheck,
   jwtParse,
   validateMyUserRequest,
-  asyncHandler(myUserController.updateCurrentUser)
+  fixHandler(myUserController.updateCurrentUser)
 );
 
 export default router;
