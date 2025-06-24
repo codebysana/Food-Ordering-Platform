@@ -13,7 +13,7 @@ const Auth0ProviderWithNavigate = ({ children }: Props) => {
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
   const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
   const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
-  // console.log("Auth0 config values:", { domain, clientId, redirectUri});
+  // console.log("Auth0 config values:", { domain, clientId, redirectUri, audience});
 
   if (!domain || !clientId || !redirectUri || !audience) {
     throw new Error("unable to inistialize auth");

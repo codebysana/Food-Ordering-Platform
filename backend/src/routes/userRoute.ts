@@ -3,6 +3,7 @@ import myUserController from "../controllers/myUserController";
 import { fixHandler } from "../../utils/fixHandler";
 import { jwtCheck, jwtParse } from "../middleware/auth";
 import { validateMyUserRequest } from "../middleware/validation";
+import { asyncHandler } from "../../utils/asyncHandler";
 
 const router = express.Router();
 
@@ -12,8 +13,8 @@ router.put(
   "/",
   jwtCheck,
   jwtParse,
-  ...validateMyUserRequest,
-  fixHandler(myUserController.updateCurrentUser)
+  validateMyUserRequest,
+  asyncHandler(myUserController.updateCurrentUser)
 );
 
 export default router;

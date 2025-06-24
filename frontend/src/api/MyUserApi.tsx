@@ -11,7 +11,11 @@ type CreateUserRequest = {
 export const useCreateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
   const createMyUserRequest = async (user: CreateUserRequest) => {
-    const accessToken = await getAccessTokenSilently();
+    const accessToken = await getAccessTokenSilently({
+      audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+    });
+
+    console.log("Access Token", accessToken);
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "POST",
       headers: {
@@ -48,8 +52,10 @@ type UpdateMyUserRequest = {
 export const useUpdateMyUser = () => {
   const { getAccessTokenSilently } = useAuth0();
   const updateMyUserRequest = async (formData: UpdateMyUserRequest) => {
-    const accessToken = await getAccessTokenSilently();
-    console.log(accessToken);
+    const accessToken = await getAccessTokenSilently({
+      audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+    });
+    console.log("Access Token", accessToken);
     const response = await fetch(`${API_BASE_URL}/api/my/user`, {
       method: "PUT",
       headers: {
@@ -58,9 +64,13 @@ export const useUpdateMyUser = () => {
       },
       body: JSON.stringify(formData),
     });
+
     if (!response.ok) {
-      throw new Error("Failed to update user");
+      const errorText = await response.text(); // or response.json() if it's JSON
+      console.error("Update user failed:", errorText);
+      throw new Error(`Failed to update user: ${response.status} ${errorText}`);
     }
+
     return await response.json();
   };
 

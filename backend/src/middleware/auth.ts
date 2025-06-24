@@ -26,6 +26,7 @@ export const jwtCheck = auth({
 export const jwtParse = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { authorization } = req.headers;
+    console.log("Auth header", req.headers.authorization);
     // Bearer Token
     if (!authorization || !authorization.startsWith("Bearer ")) {
       return res.sendStatus(401);
