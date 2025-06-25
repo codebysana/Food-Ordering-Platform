@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
+import restaurantRoute from "./routes/restaurantRoute";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
@@ -28,6 +29,7 @@ app.get("/health", async (req: Request, res: Response) => {
 });
 
 app.use("/api/my/user", userRoute);
+app.use("/api/my/restaurant", restaurantRoute);
 
 app.listen(5000, () => {
   console.log("Server started on localhost:5000");

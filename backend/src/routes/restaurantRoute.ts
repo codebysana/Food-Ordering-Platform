@@ -1,6 +1,7 @@
 import express from "express";
 import { fixHandler } from "../../utils/fixHandler";
 import multer from "multer";
+import myRestaurantController from "../controllers/myRestaurantController";
 
 const router = express.Router();
 
@@ -18,3 +19,5 @@ router.post(
   upload.single("imageFile"),
   fixHandler(myRestaurantController.createMyRestaurant)
 );
+
+export default router;
