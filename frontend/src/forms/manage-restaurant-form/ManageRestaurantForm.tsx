@@ -38,6 +38,9 @@ const formSchema = z.object({
     })
   ),
   imageFile: z.instanceof(File, { message: "image is required" }),
+  // imageFile: z.custom<File>((val) => val instanceof File && val.size > 0, {
+  //   message: "Image is required",
+  // }),
 });
 
 type restaurantFormData = z.infer<typeof formSchema>;
@@ -52,7 +55,7 @@ const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       cuisines: [],
-      menuItems: [{ name: "", price: 0 }],
+      menuItems: [{ name: "Pizza", price: 0 }],
     },
   });
   const onSubmit = (formDataJson: restaurantFormData) => {
