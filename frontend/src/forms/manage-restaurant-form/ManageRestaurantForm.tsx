@@ -75,11 +75,12 @@ const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
       price: parseInt((item.price / 100).toFixed(2)),
     }));
     const updatedResturant = {
-      ...restaurant,
+      ...restaurant, // copy all existing properties on the restaurant object which we receive from the get request
       deliveryPrice: deliveryPriceFormatted,
       menuItems: menuItemsFormatted,
     };
-  }, []);
+    form.reset(updatedResturant);
+  }, [form, restaurant]);
   const onSubmit = (formDataJson: restaurantFormData) => {
     // TODO - convert formDataJson to a new FormData object
     const formData = new FormData();
