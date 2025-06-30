@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import mongoose from "mongoose";
 import userRoute from "./routes/userRoute";
-import restaurantRoute from "./routes/restaurantRoute";
+import restaurantRoute from "./routes/myRestaurantRoute";
 import { v2 as cloudinary } from "cloudinary";
 
 cloudinary.config({
