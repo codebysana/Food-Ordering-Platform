@@ -38,7 +38,7 @@ router.put(
   validateMyRestaurantRequest,
   jwtCheck,
   jwtParse,
-  fixHandler(myRestaurantController.updateMyRestaurant);
+  fixHandler(myRestaurantController.updateMyRestaurant)
 );
 
 export default router;
