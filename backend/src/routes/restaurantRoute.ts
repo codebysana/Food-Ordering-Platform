@@ -14,3 +14,5 @@ router.get(
     .withMessage("City parament must be a valid string"),
   fixHandler(RestaurantController.searchRestaurant)
 );
+
+export default router;
