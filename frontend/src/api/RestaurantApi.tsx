@@ -1,10 +1,17 @@
+import type { SearchState } from "@/pages/SearchPage";
 import type { RestaurantSearchResponse } from "@/types";
 import { useQuery } from "react-query";
 
-export const useSearchRestaurants = (city?: string) => {
+export const useSearchRestaurants = (
+  searchState: SearchState,
+  city?: string
+) => {
   const createSearchRequest = async (): Promise<RestaurantSearchResponse> => {
+    const params = new URLSearchParams();
+    params.set("searchQuery", searchState.searchQuery);
+
     const response = await fetch(
-      `http://localhost:5000/api/restaurant/search/${city}`
+      `http://localhost:5000/api/restaurant/search/${city}?${params.toString()}`
     );
 
     if (!response.ok) {
@@ -13,7 +20,7 @@ export const useSearchRestaurants = (city?: string) => {
     return response.json();
   };
   const { data: results, isLoading } = useQuery(
-    ["searchRestaurants"],
+    ["searchRestaurants", searchState],
     createSearchRequest,
     { enabled: !!city }
   );

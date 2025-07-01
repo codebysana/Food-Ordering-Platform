@@ -16,15 +16,15 @@ const SearchResultCard = ({ restaurant }: Props) => {
       <AspectRatio ratio={16 / 6}>
         <img
           src={restaurant.imageUrl}
-          className="w-full h-[200px] rounded-md object-cover"
+          className="w-full h-full rounded-md object-cover "
           alt=""
         />
       </AspectRatio>
       <div>
-      <h3 className="text-2xl font-bold tracking-tight mb-2 group-hover:underline pb-2">
+      <h3 className="text-2xl font-bold tracking-tight mb-2 group-hover:underline">
         {restaurant.restaurantName}
       </h3>
-      <div id="card-content" className="">
+      <div id="card-content" className="grid grid-cols-2 gap-3">
         <div className="flex flex-row flex-wrap pb-4">
           {restaurant.cuisines.map((item, index) => (
             <span className="flex">
@@ -34,7 +34,7 @@ const SearchResultCard = ({ restaurant }: Props) => {
           ))}
         </div>
         <div className="flex gap-2 flex-col">
-          <div className="items-center flex gap-1 text-green-600 pb-4">
+          <div className="items-center flex gap-1 text-green-600 pb-1">
             <Clock className="text-green-600" />
             {restaurant.estimatedDeliveryTime} mins
           </div>
