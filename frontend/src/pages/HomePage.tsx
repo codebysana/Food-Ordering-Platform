@@ -14,10 +14,10 @@ const HomePage = () => {
   return (
     <div className="flex flex-col gap-12">
       <div className="md:px-32 bg-white rounded-lg shadow-md py-8 flex flex-col text-center -mt-16">
-        <h1 className="text-5xl font-bold tracking-tight text-orange-600">
+        <h1 className="text-5xl font-bold tracking-tight text-orange-600 pb-5">
           Tuck into a takeway today
         </h1>
-        <span className="text-xl">Food is just a click away!</span>
+        <span className="text-xl pb-5">Food is just a click away!</span>
         <SearchBar
           placeHolder="Search by City or Town"
           onSubmit={handleSearchSubmit}

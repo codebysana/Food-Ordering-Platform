@@ -1,7 +1,8 @@
+import type { RestaurantSearchResponse } from "@/types";
 import { useQuery } from "react-query";
 
 export const useSearchRestaurants = (city?: string) => {
-  const createSearchRequest = async () => {
+  const createSearchRequest = async (): Promise<RestaurantSearchResponse> => {
     const response = await fetch(
       `http://localhost:5000/api/restaurant/search/${city}`
     );
