@@ -7,6 +7,7 @@ import { Card, CardFooter } from "@/components/ui/card";
 import { MenuItem as MenuItemType } from "../types";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import CheckoutButton from "@/components/CheckoutButton";
 
 export type CartItem = {
   _id: string;

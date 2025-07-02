@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 const LoadingButton = () => {
   return (
     <div>
-      <Button>
+      <Button disabled>
         <Loader2 className="mr-4 w-4 h-4 animate-spin" />
         Loading
       </Button>
