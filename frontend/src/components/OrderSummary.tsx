@@ -2,6 +2,7 @@ import type { CartItem } from "@/pages/DetailPage";
 import type { Restaurant } from "@/types";
 import { CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { Separator } from "./ui/separator";
 
 type Props = {
   restaurant: Restaurant;
@@ -9,6 +10,16 @@ type Props = {
 };
 
 const OrderSummary = ({ restaurant, cartItems }: Props) => {
+  const getTotalCost = () => {
+    const totalInPence = cartItems.reduce(
+      (total, cartItem) => total + cartItem.price * cartItem.quantity,
+      0
+    );
+
+    const totalWithDelivery = totalInPence + restaurant.deliveryPrice;
+    return (totalWithDelivery / 100).toFixed(2);
+  };
+
   return (
     <>
       <CardHeader>
@@ -31,6 +42,12 @@ const OrderSummary = ({ restaurant, cartItems }: Props) => {
             </span>
           </div>
         ))}
+        <Separator />
+        <div className="flex justify-between">
+          <span>Delivery</span>
+          <span>£{(restaurant.deliveryPrice / 100).toFixed(2)}</span>
+        </div>
+        <Separator />
       </CardContent>
     </>
   );
