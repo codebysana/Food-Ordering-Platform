@@ -6,12 +6,22 @@ import { fixHandler } from "../../utils/fixHandler";
 const router = express.Router();
 
 router.get(
+  "/:restaurantId",
+  param("restaurantId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("RestaurantId parameter must be a valid string"),
+  fixHandler(RestaurantController.getRestaurant)
+);
+
+router.get(
   "/search/:city",
   param("city")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage("City parament must be a valid string"),
+    .withMessage("City parameter must be a valid string"),
   fixHandler(RestaurantController.searchRestaurant)
 );
 
