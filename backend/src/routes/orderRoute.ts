@@ -11,3 +11,5 @@ router.post(
   jwtParse,
   fixHandler(OrderController.createCheckoutSession)
 );
+
+export default router;
