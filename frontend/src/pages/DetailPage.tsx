@@ -4,7 +4,7 @@ import OrderSummary from "@/components/OrderSummary";
 import RestaurantInfo from "@/components/RestaurantInfo";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Card, CardFooter } from "@/components/ui/card";
-import { MenuItem as MenuItemType } from "../types";
+import type { MenuItem as MenuItemType } from "../types";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import CheckoutButton from "@/components/CheckoutButton";
@@ -20,7 +20,10 @@ const DetailPage = () => {
   const { restaurantId } = useParams();
   const { restaurant, isLoading } = useGetRestaurant(restaurantId);
 
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>(() => {
+    const storedCartItems = sessionStorage.getItem(`cartItems-${restaurantId}`);
+    return storedCartItems ? JSON.parse(storedCartItems) : [];
+  });
 
   const addToCart = (menuItem: MenuItemType) => {
     setCartItems((prevCartItems) => {
@@ -49,6 +52,10 @@ const DetailPage = () => {
         ];
       }
 
+      sessionStorage.setItem(
+        `cartItems-${restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
       // 3. if item is not in cart, add it as a new item
       return updatedCartItems;
     });
@@ -59,6 +66,12 @@ const DetailPage = () => {
       const updatedCartItems = prevCartItems.filter(
         (item) => cartItem._id !== item._id
       );
+
+      sessionStorage.setItem(
+        `cartItems-${restaurantId}`,
+        JSON.stringify(updatedCartItems)
+      );
+
       return updatedCartItems;
     });
   };
@@ -76,7 +89,7 @@ const DetailPage = () => {
           className="rounded-md object-cover h-full w-full"
         />
       </AspectRatio>
-      <div className="grid d:grid-cols-[4fr_2fr] gap-5 md:px-32">
+      <div className="grid md:grid-cols-[4fr_2fr] gap-5 md:px-32">
         <div className="flex flex-col gap-4">
           <RestaurantInfo restaurant={restaurant} />
           <span className="text-2xl font-bold tracking-tight">Menu</span>
