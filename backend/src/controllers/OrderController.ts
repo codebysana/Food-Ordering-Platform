@@ -7,6 +7,8 @@ import Order from "../models/order";
 const STRIPE = new Stripe(process.env.STRIPE_API_KEY as string);
 const FRONTEND_URL = process.env.FRONTEND_URL as string;
 
+const STRIPE_ENDPOINT_SECRET = process.env.STRIPE_WEBHOOK_SECRET as string;
+
 type CheckoutSessionRequest = {
   cartItems: {
     menuItemId: string;
@@ -23,10 +25,18 @@ type CheckoutSessionRequest = {
 };
 
 const stripeWebhookHandler = async (req: Request, res: Response) => {
-  console.log("RECEIVED EVENT");
-  console.log("==========");
-  console.log("event: ", req.body);
-  res.send();
+  let event;
+  try {
+    const sign = req.headers["stripe-signature"];
+    event = STRIPE.webhooks.constructEvent(
+      req.body,
+      sign as string,
+      STRIPE_ENDPOINT_SECRET
+    );
+  } catch (error: any) {
+    console.log(error);
+    res.status(400).send(`Webhook Error:  ${error.message}`);
+  }
 };
 
 const createCheckoutSession = async (req: Request, res: Response) => {

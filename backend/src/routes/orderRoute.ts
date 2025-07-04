@@ -1,7 +1,7 @@
 import express from "express";
 import { jwtCheck, jwtParse } from "../middleware/auth";
 import { fixHandler } from "../../utils/fixHandler";
-import OrderController from "../controllers/OrderController";
+import OrderController from "../controllers/orderController";
 
 const router = express.Router();
 
