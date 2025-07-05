@@ -16,6 +16,7 @@ const ManageRestaurantPage = () => {
     useUpdateMyRestaurant();
 
   const { orders } = useGetMyRestaurantOrders();
+  console.log("My Orders", orders);
 
   const isEditing = !!restaurant; // '!' means if restaurant exists it will return true otherwise return false
   return (
@@ -29,8 +30,11 @@ const ManageRestaurantPage = () => {
         className="space-y-5 bg-gray-50 p-10 rounded-lg"
       >
         <h2 className="text-2xl font-bold ">{orders?.length} Active Orders</h2>
+
+        {orders?.length === 0 && <p>No Orders Available</p>}
+
         {orders?.map((order) => (
-          <OrderItemCard order={order} />
+          <OrderItemCard key={order._id} order={order} />
         ))}
       </TabsContent>
       <TabsContent value="manage-restaurant">

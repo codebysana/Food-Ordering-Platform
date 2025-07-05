@@ -87,7 +87,10 @@ const getMyRestaurantOrders = async (req: Request, res: Response) => {
       restaurant: restaurant._id,
     })
       .populate("restaurant")
-      .populate("user");
+      .populate("user")
+      .populate("cartItems.menuItemId")
+      .sort({ createdAt: -1 })
+      .lean();
 
     res.json(orders);
   } catch (error) {
